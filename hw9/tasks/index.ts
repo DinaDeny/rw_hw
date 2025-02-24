@@ -1,6 +1,6 @@
-import { BaseAnimal} from "./types/BaseAnimal";
+import { BaseAnimal, AliveAnimal, PlushAnimal} from "./types/BaseAnimal";
 
-class Animal extends BaseAnimal {
+class Animal extends AliveAnimal {
     public constructor(name: string, energy: number) {
         super(name, energy);
     }
@@ -80,9 +80,21 @@ export class Cat extends Animal {
     }
 }
 
+class PlushBear extends PlushAnimal {
+    public purchaseDate: string;
 
-function interactWithAnimal(animal: BaseAnimal) {
-    animal.eat(10);
+    public constructor(name : string, purchaseDate : string) {
+        super(name);
+        this.purchaseDate = purchaseDate
+    }
+
+    public greeting(): string {
+        return `${this.name} is happy to see you! You bought it on ${this.purchaseDate}`
+    }
+}
+
+
+function interactWithAliveAnimal(animal: AliveAnimal) {
     animal.sleep();
     animal.play();
     animal.getEnergy();
@@ -90,8 +102,26 @@ function interactWithAnimal(animal: BaseAnimal) {
     console.log(animal);
 }
 
+function interactWithPlushAnimal(animal: PlushBear){
+    console.log(animal.name);
+    console.log(animal.greeting());
+}
+
+function feedAliveAnimal(animal:AliveAnimal){
+    animal.eat(10);
+}
+
 const dog = new Dog('Buddy', 50, 'Labrador');
 const cat = new Cat('Whiskers', 40, false);
+const plushBear = new PlushBear('Teddy', '11/07/2024')
 
-interactWithAnimal(dog);
-interactWithAnimal(cat);
+interactWithAliveAnimal(dog);
+interactWithAliveAnimal(cat);
+
+feedAliveAnimal(dog);
+feedAliveAnimal(cat);
+
+interactWithPlushAnimal(plushBear)
+
+
+

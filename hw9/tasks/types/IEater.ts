@@ -1,3 +1,3 @@
-export interface Eater {
+export interface IEater {
     eat(amount: number): void;
 }

@@ -1,14 +1,28 @@
-import {Eater} from './Eater';
-import {Player} from './Player';
-import {Sleeper} from './Sleeper';
+import { IEater } from './IEater';
+import { IGreeting } from './IGreeting';
+import { IPlayer } from './IPlayer';
+import { ISleeper } from './ISleeper';
 
 
-export abstract class BaseAnimal implements Eater, Sleeper, Player {
+export abstract class BaseAnimal {
     public name: string;
+
+    public constructor(name: string) {
+        this.name = name;
+    }
+}
+
+
+export abstract class PlushAnimal extends BaseAnimal  implements IGreeting {
+    public abstract greeting(): string;
+}
+
+
+export abstract class AliveAnimal extends BaseAnimal implements IEater, ISleeper, IPlayer, IGreeting {
     private energy: number;
 
     public constructor(name: string, energy: number) {
-        this.name = name;
+        super(name)
         this.energy = energy;
     }
 
