@@ -1,4 +1,4 @@
-import {  AliveAnimal, PlushAnimal} from './types/BaseAnimal';
+import { AliveAnimal, PlushAnimal } from './types/base-animal';
 
 class Animal extends AliveAnimal {
     public constructor(name: string, energy: number) {
@@ -24,7 +24,6 @@ class Animal extends AliveAnimal {
         return `${this.name} makes a noise.`;
     }
 }
-
 
 export class Dog extends Animal {
     public breed: string;
@@ -54,7 +53,6 @@ export class Dog extends Animal {
     }
 }
 
-
 export class Cat extends Animal {
     public declawed: boolean;
 
@@ -67,7 +65,6 @@ export class Cat extends Animal {
         console.log('Meow!');
         this.reduceEnergy(0.1);
     }
-
 
     public sleep(): void {
         console.log(`${this.name} is purring and sleeping.`);
@@ -82,7 +79,7 @@ export class Cat extends Animal {
 export class PlushBear extends PlushAnimal {
     public purchaseDate: string;
 
-    public constructor(name : string, purchaseDate : string) {
+    public constructor(name: string, purchaseDate: string) {
         super(name);
         this.purchaseDate = purchaseDate;
     }
@@ -92,8 +89,7 @@ export class PlushBear extends PlushAnimal {
     }
 }
 
-
-export function interactWithAliveAnimal(animal: AliveAnimal):void {
+export function interactWithAliveAnimal(animal: AliveAnimal): void {
     animal.sleep();
     animal.play();
     animal.getEnergy();
@@ -101,12 +97,12 @@ export function interactWithAliveAnimal(animal: AliveAnimal):void {
     console.log(animal);
 }
 
-export function interactWithPlushAnimal(animal: PlushBear):void {
+export function interactWithPlushAnimal(animal: PlushBear): void {
     console.log(animal.name);
     console.log(animal.greeting());
 }
 
-export function feedAliveAnimal(animal:AliveAnimal):void {
+export function feedAliveAnimal(animal: AliveAnimal): void {
     animal.eat(10);
 }
 
@@ -121,5 +117,3 @@ feedAliveAnimal(dog);
 feedAliveAnimal(cat);
 
 interactWithPlushAnimal(plushBear);
-
-

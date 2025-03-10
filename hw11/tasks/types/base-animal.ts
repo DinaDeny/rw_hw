@@ -1,8 +1,7 @@
-import { IEater } from './IEater';
-import { IGreeting } from './IGreeting';
-import { IPlayer } from './IPlayer';
-import { ISleeper } from './ISleeper';
-
+import { IEater } from './i-eater';
+import { IGreeting } from './i-greeting';
+import { IPlayer } from './i-player';
+import { ISleeper } from './i-sleeper';
 
 export abstract class BaseAnimal {
     public name: string;
@@ -12,11 +11,9 @@ export abstract class BaseAnimal {
     }
 }
 
-
-export abstract class PlushAnimal extends BaseAnimal  implements IGreeting {
+export abstract class PlushAnimal extends BaseAnimal implements IGreeting {
     public abstract greeting(): string;
 }
-
 
 export abstract class AliveAnimal extends BaseAnimal implements IEater, ISleeper, IPlayer, IGreeting {
     private energy: number;
@@ -46,4 +43,3 @@ export abstract class AliveAnimal extends BaseAnimal implements IEater, ISleeper
         this.energy -= amount;
     }
 }
-
