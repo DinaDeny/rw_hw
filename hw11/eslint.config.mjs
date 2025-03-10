@@ -45,5 +45,11 @@ export default tsEslint.config({
         '@stylistic/arrow-spacing': 'error',
         '@stylistic/comma-spacing': ['error', { before: false, after: true }],
         '@stylistic/keyword-spacing': ['error', { before: true, after: true }],
+        'unicorn/filename-case': [
+            'error',
+            {
+                case: 'kebabCase'
+            }
+        ],
     }
 });
