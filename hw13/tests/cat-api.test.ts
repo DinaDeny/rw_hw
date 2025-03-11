@@ -1,7 +1,8 @@
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import { expect } from '@jest/globals';
 import dotenv from 'dotenv';
 import { FavouriteCat } from 'models/cats.dto';
+import { ErrorResponse } from 'models/error-response';
 
 dotenv.config();
 
@@ -55,10 +56,37 @@ describe('The Cat API Integration Tests', () => {
     });
 
     it('Get favourites and check image', async () => {
+        const notExistingImageId = 'notExistingImageId';
+
         const response = await api.get('/favourites');
 
         expect(response.status).toBe(200);
-        expect(response.data.some((cat: FavouriteCat) => cat.image_id === imageId)).toBe(true);
+
+        const favouriteCat = response.data.find((cat: FavouriteCat) => cat.image_id === imageId);
+
+        expect(favouriteCat).toBeDefined();
+
+        if (favouriteCat) {
+            expect(favouriteCat.image_id).toBe(imageId);
+        }
+
+        try {
+            await api.get(`/images/${notExistingImageId}`);
+        } catch (error) {
+            const axiosError = error as AxiosError<ErrorResponse>;
+
+            if (axiosError.response) {
+                expect(axiosError.response.status).toBe(400);
+            } else {
+                throw new Error('No response from server');
+            }
+        }
+
+        const imageResponse = await api.get(`/images/${imageId}`);
+
+        expect(imageResponse.status).toBe(200);
+        expect(imageResponse.data.id).toBe(imageId);
+        expect(imageResponse.data.url).toBeDefined();
     });
 
     it('Delete favourite item', async () => {
