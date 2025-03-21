@@ -1,0 +1,136 @@
+{
+  "consumer": {
+    "name": "User-Web-v4"
+  },
+  "interactions": [
+    {
+      "description": "Create a user",
+      "pending": false,
+      "providerStates": [
+        {
+          "name": "User interaction"
+        }
+      ],
+      "request": {
+        "body": {
+          "content": {
+            "email": "dd@gmail.com",
+            "firstName": "Din",
+            "id": 54,
+            "lastName": "Deny",
+            "password": "12345678",
+            "phone": "380999999999",
+            "userStatus": 1,
+            "username": "din_den"
+          },
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "headers": {
+          "Accept": [
+            "application/json"
+          ],
+          "Content-Type": [
+            "application/json"
+          ]
+        },
+        "method": "POST",
+        "path": "/v2/user"
+      },
+      "response": {
+        "body": {
+          "content": {
+            "code": 200,
+            "message": "08755346",
+            "type": "unknown"
+          },
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json"
+          ]
+        },
+        "matchingRules": {
+          "body": {
+            "$": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          },
+          "header": {},
+          "status": {}
+        },
+        "status": 200
+      },
+      "type": "Synchronous/HTTP"
+    },
+    {
+      "description": "Get a user",
+      "pending": false,
+      "request": {
+        "headers": {
+          "Accept": [
+            "application/json"
+          ]
+        },
+        "method": "GET",
+        "path": "/v2/user/din_den"
+      },
+      "response": {
+        "body": {
+          "content": {
+            "email": "dd@gmail.com",
+            "firstName": "Din",
+            "id": 54,
+            "lastName": "Deny",
+            "password": "12345678",
+            "phone": "380999999999",
+            "userStatus": 1,
+            "username": "din_den"
+          },
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json"
+          ]
+        },
+        "matchingRules": {
+          "body": {
+            "$": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          },
+          "header": {},
+          "status": {}
+        },
+        "status": 200
+      },
+      "type": "Synchronous/HTTP"
+    }
+  ],
+  "metadata": {
+    "pactRust": {
+      "ffi": "0.4.22",
+      "models": "1.2.3"
+    },
+    "pactSpecification": {
+      "version": "4.0"
+    }
+  },
+  "provider": {
+    "name": "User-API-v4"
+  }
+}
