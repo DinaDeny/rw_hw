@@ -1,0 +1,37 @@
+{
+  "name": "hw16-puppeteer",
+  "version": "1.0.0",
+  "description": "hw16 puppeteer",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint src/",
+    "lint:fix": "npm run lint -- --fix",
+    "build": "npm run lint && tsc --build",
+    "test": "npx eslint . && jest"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "eslint-plugin-unicorn": "^56.0.1",
+    "puppeteer": "^24.4.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.19.0",
+    "@jest/globals": "^29.7.0",
+    "@stylistic/eslint-plugin": "^3.0.0",
+    "@stylistic/eslint-plugin-ts": "^3.0.0",
+    "@types/jest": "^29.5.14",
+    "@types/puppeteer": "^5.4.7",
+    "@typescript-eslint/eslint-plugin": "^8.21.0",
+    "@typescript-eslint/parser": "^8.21.0",
+    "eslint": "^9.19.0",
+    "eslint-plugin-prettier": "^5.2.3",
+    "esrun": "^3.2.26",
+    "globals": "^15.15.0",
+    "prettier": "3.4.2",
+    "ts-jest": "^29.2.5",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.3",
+    "typescript-eslint": "^8.21.0"
+  }
+}
