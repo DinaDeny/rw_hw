@@ -1,0 +1,103 @@
+name: Playwright Tests with Allure (hw22)
+
+on:
+  push:
+    branches: [hw22]
+  pull_request:
+    branches: [hw22]
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+
+    env:
+      BUILD_FOLDER: hw22
+
+    strategy:
+      matrix:
+        node-version: [22.x]
+
+    steps:
+      - name: 🧾 Checkout repository
+        uses: actions/checkout@v3
+
+      - name: 📦 Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "npm"
+          cache-dependency-path: "${{ env.BUILD_FOLDER }}/package-lock.json"
+
+      - name: 📥 Install dependencies
+        run: |
+          if [ -f "${{ env.BUILD_FOLDER }}/package-lock.json" ]; then
+            echo "package-lock.json found, running npm ci"
+            npm ci
+          else
+            echo "package-lock.json not found, running npm install"
+            npm install
+          fi
+        working-directory: ${{ env.BUILD_FOLDER }}
+
+      - name: 🧩 Install Playwright browsers
+        run: npx playwright install --with-deps
+        working-directory: ${{ env.BUILD_FOLDER }}
+
+      - name: 🐳 Set up Docker Compose
+        uses: isbang/compose-action@v1.5.1
+        with:
+          compose-file: ${{ env.BUILD_FOLDER }}/docker-compose.yml
+          down-flags: "--volumes"
+
+      - name: 🚀 Build Docker services
+        run: docker compose build
+        working-directory: ${{ env.BUILD_FOLDER }}
+
+      - name: 🕒 Wait for frontend to be ready
+        run: |
+          for i in {1..30}; do
+            if curl http://localhost:3000 > /dev/null 2>&1; then
+              echo "Frontend is up!"
+              break
+            fi
+            echo "Waiting for frontend..."
+            sleep 2
+          done
+        working-directory: ${{ env.BUILD_FOLDER }}
+
+      - name: 🧪 Run Playwright tests
+        run: npm run test
+        working-directory: ${{ env.BUILD_FOLDER }}
+
+      - name: 📊 Build Allure report
+        run: npx allure generate ./allure-results --clean --single-file -o ./allure-report
+        working-directory: ${{ env.BUILD_FOLDER }}
+        if: always()
+
+      - name: 📦 Upload Allure report
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-report
+          path: ${{ env.BUILD_FOLDER }}/allure-report
+          retention-days: 30
+        if: always()
+
+      - name: 🧾 Upload Playwright test results
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-test-results
+          path: ${{ env.BUILD_FOLDER }}/test-results
+          retention-days: 30
+        if: always()
+
+      - name: 📁 Upload Playwright HTML report
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: ${{ env.BUILD_FOLDER }}/playwright-report
+          retention-days: 30
+        if: always()
+
+      - name: 🧹 Shut down Docker services
+        run: docker compose down
+        working-directory: ${{ env.BUILD_FOLDER }}

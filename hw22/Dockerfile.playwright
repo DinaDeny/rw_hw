@@ -1,0 +1,14 @@
+FROM mcr.microsoft.com/playwright:v1.43.1-jammy
+
+WORKDIR /tests
+
+COPY package*.json ./
+COPY playwright.config.ts ./
+RUN npm install
+RUN npm install -D allure-playwright
+RUN npx playwright install --with-deps
+
+COPY ./tests ./tests
+COPY ./src ./src
+
+CMD ["npx", "playwright", "test"]
