@@ -7,11 +7,11 @@
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
-    "test": "playwright test"
+    "test": "npx playwright test"
   },
   "devDependencies": {
     "@eslint/js": "^9.22.0",
-    "@playwright/test": "^1.51.1",
+    "@playwright/test": "^1.52.0",
     "@stylistic/eslint-plugin": "^4.2.0",
     "@stylistic/eslint-plugin-ts": "^4.2.0",
     "@types/node": "^22.13.10",

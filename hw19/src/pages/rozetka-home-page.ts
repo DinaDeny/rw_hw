@@ -9,7 +9,6 @@ export class RozetkaHomePage {
     public readonly loginIconButton: Locator;
     public readonly bannerSlider: Locator;
     public readonly burgerMenuIcon: Locator;
-    public readonly closeLoginWithGoogleIcon: Locator;
     public readonly loginButtonInsideMenu: Locator;
     public readonly loginModal: Locator;
 
@@ -22,13 +21,12 @@ export class RozetkaHomePage {
         this.loginIconButton = page.locator('rz-auth-icon > button');
         this.bannerSlider = page.locator('rz-slider');
         this.burgerMenuIcon = page.locator('.header-menu.header__button');
-        this.closeLoginWithGoogleIcon = page.locator('#container #close');
         this.loginButtonInsideMenu = page.locator('rz-menu-content rz-user-login button');
         this.loginModal = page.locator('rz-modal-layout');
     }
 
     public async navigateToPage(): Promise<void> {
-        await this.page.goto('https://rozetka.com.ua/', { waitUntil: 'load' });
+        await this.page.goto('https://rozetka.com.ua/', { waitUntil: 'domcontentloaded' });
     }
 
     public async navigateToLoginModal(): Promise<void> {
