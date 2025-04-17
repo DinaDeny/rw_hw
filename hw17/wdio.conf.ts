@@ -51,9 +51,15 @@ export const config: WebdriverIO.Config = {
     // Sauce Labs platform configurator - a great tool to configure your capabilities:
     // https://saucelabs.com/platform/platform-configurator
     //
+
     capabilities: [
         {
-            browserName: 'chrome'
+            browserName: 'chrome',
+            'wdio:enforceWebDriverClassic': true,
+            acceptInsecureCerts: true,
+            'goog:chromeOptions': {
+                args: ['--headless=new', '--disable-gpu', '--window-size=1920x1080', '--disable-dev-shm-usage', '--no-sandbox']
+            }
         }
     ],
 
@@ -88,10 +94,10 @@ export const config: WebdriverIO.Config = {
     // with `/`, the base url gets prepended, not including the path portion of your baseUrl.
     // If your `url` parameter starts without a scheme or `/` (like `some/path`), the base url
     // gets prepended directly.
-    // baseUrl: 'http://localhost:8080',
+    baseUrl: 'http://rozetka.com.ua',
     //
     // Default timeout for all waitFor* commands.
-    waitforTimeout: 10000,
+    waitforTimeout: 20000,
     //
     // Default timeout in milliseconds for request
     // if browser driver or grid doesn't send response
@@ -132,7 +138,7 @@ export const config: WebdriverIO.Config = {
     // See the full list at http://mochajs.org/
     mochaOpts: {
         ui: 'bdd',
-        timeout: 60000
+        timeout: 120000
     },
 
     //

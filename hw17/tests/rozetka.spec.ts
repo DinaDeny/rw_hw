@@ -5,28 +5,25 @@ describe('WebDriverIO rozetka tests', () => {
     let savedUrl = '';
     let rozetkaPage: RozetkaPage;
 
-    before(async () => {
+    beforeEach(async () => {
         rozetkaPage = new RozetkaPage();
         await rozetkaPage.goToMainPage();
     });
 
     it('Should find first item in the recommended list', async () => {
-        const recommendedItem = rozetkaPage.firstRecommendedItem;
-        await expect(recommendedItem).toBeDisplayed();
+        await expect(rozetkaPage.firstRecommendedItem).toBeDisplayed();
 
-        const titleElement = rozetkaPage.firstRecommendedItemTitle;
-        await expect(titleElement).toBeDisplayed();
+        await expect(rozetkaPage.firstRecommendedItemTitle).toBeDisplayed();
 
-        const textFromElement = await titleElement.getText();
+        const textFromElement = await rozetkaPage.firstRecommendedItemTitle.getText();
 
-        await recommendedItem.click();
+        await rozetkaPage.firstRecommendedItem.click();
 
-        const firstRecommendedItemAboutTitle = rozetkaPage.firstRecommendedItemAboutTitle;
-        await expect(firstRecommendedItemAboutTitle).toBeDisplayed();
+        await expect(rozetkaPage.firstRecommendedItemAboutTitle).toBeDisplayed();
 
         savedUrl = await rozetkaPage.getPageUrl();
 
-        const selectedText = await firstRecommendedItemAboutTitle.getText();
+        const selectedText = await rozetkaPage.firstRecommendedItemAboutTitle.getText();
 
         await expect(selectedText?.trim()).toContain(textFromElement?.trim());
     });

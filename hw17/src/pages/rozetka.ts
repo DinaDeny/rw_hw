@@ -1,11 +1,11 @@
-import { $, browser } from '@wdio/globals';
+import { browser } from '@wdio/globals';
 import { ChainablePromiseElement } from 'webdriverio';
 
 export class RozetkaPage {
     private url = 'https://rozetka.com.ua/';
 
     private getElementBySelector(selector: string): ChainablePromiseElement {
-        return $(selector);
+        return browser.$(selector);
     }
 
     public get signInElement(): ChainablePromiseElement {
@@ -14,6 +14,7 @@ export class RozetkaPage {
 
     public async goToMainPage(): Promise<void> {
         await browser.url(this.url);
+
         this.signInElement.waitForStable();
     }
 
@@ -50,6 +51,6 @@ export class RozetkaPage {
     }
 
     public get productDetailsProductInfo(): ChainablePromiseElement {
-        return this.getElementBySelector('.product-about__left > div > button');
+        return this.getElementBySelector('.product-about__left');
     }
 }
