@@ -1,0 +1,23 @@
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: tracker-app
+    ports:
+      - "3000:3000"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000"]
+      interval: 5s
+      timeout: 5s
+      retries: 15
+
+  tests:
+    build:
+      context: .
+      dockerfile: Dockerfile.playwright
+    depends_on:
+      frontend:
+        condition: service_healthy
+    environment:
+      - BASE_URL=http://frontend:3000
