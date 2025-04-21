@@ -6,3 +6,9 @@ node_modules/
 /blob-report/
 /playwright/.cache/
 browser-context.json
+.obs*/
+allure*/
+log/
+*.log
+mochawesome-report
+.env
